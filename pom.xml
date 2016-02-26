@@ -136,7 +136,8 @@
     <scm>
         <connection>scm:git:https://github.com/wso2-extensions/esb-connector-drupal.git</connection>
         <url>https://github.com/wso2-extensions/esb-connector-drupal.git</url>
-        <developerConnection>scm:git:https://github.com/wso2-extensions/esb-connector-drupal
+        <developerConnection>
+            scm:git:https://github.com/wso2-extensions/esb-connector-drupal
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
