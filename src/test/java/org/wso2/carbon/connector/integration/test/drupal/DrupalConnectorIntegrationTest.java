@@ -48,7 +48,7 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
 
-        init("drupal-connector-1.0.0");
+        init("drupal-connector-1.0.1-SNAPSHOT");
         esbRequestHeadersMap.put("Content-Type", "application/json");
 
         // Create base64-encoded auth string using username and password
