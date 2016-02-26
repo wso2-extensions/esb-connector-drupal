@@ -42,7 +42,6 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
     private String page;
     private String pageSize;
 
-
     /**
      * Set up the environment.
      */
@@ -50,7 +49,6 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
     public void setEnvironment() throws Exception {
 
         init("drupal-connector-1.0.0");
-
         esbRequestHeadersMap.put("Content-Type", "application/json");
 
         // Create base64-encoded auth string using username and password
