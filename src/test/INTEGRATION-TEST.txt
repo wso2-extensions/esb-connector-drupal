@@ -10,14 +10,14 @@ Pre-requisites:
 Tested Platform: 
 
  - Microsoft WINDOWS V-7
- - UBUNTU 13.04
- - WSO2 ESB 4.9.0
+ - UBUNTU 13.04, 14.04
+ - WSO2 ESB 4.9.0, 5.0.0-BETA
  - Java 1.7
  - Drupal 7.41
 
 Steps to follow in setting integration test.
 
- 1. Download ESB 4.9.0 from official website.
+ 1. Download ESB 5.0.0-BETA from official website and add "-XX:-UseSplitVerifier" under $JVM_MEM_OPTS into {ESB_HOME}/bin/wso2server.sh".
 
  2. Navigate to below mentioned URL and follow the guidelines to setup Drupal.
       https://www.drupal.org/documentation/install
@@ -49,7 +49,7 @@ Steps to follow in setting integration test.
       
       vii) Navigate to "http://{DRUPAL_HOSTED_DOMAIN}/node#overlay=admin/structure/types/manage/article/comment/fields" and add text type new comment field with a label. Keep the custom field machine name for further reference.
  
- 5. Compress modified ESB as wso2esb-4.9.0.zip and copy that zip file in to location "<ESB_CONNECTOR_HOME>/repository/".
+ 5. Compress modified ESB as wso2esb-5.0.0-BETA.zip and copy that zip file in to location "<ESB_CONNECTOR_HOME>/repository/".
  
  6. Update the Drupal properties file at location "<DRUPAL_CONNECTOR_HOME>/src/test/resources/artifacts/ESB/connector/config" as below.
 
