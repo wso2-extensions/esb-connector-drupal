@@ -48,7 +48,7 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
 
-        init("drupal-connector-1.0.1");
+        init("drupal-connector-1.0.2-SNAPSHOT");
         esbRequestHeadersMap.put("Content-Type", "application/json");
 
         // Create base64-encoded auth string using username and password
@@ -292,7 +292,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"}, description = "drupal {updateNode} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"},
+            description = "drupal {updateNode} integration test with optional parameters.")
     public void testUpdateNodeWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:updateNode");
@@ -306,18 +307,29 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
 
         RestResponse<JSONObject> apiRestResponseAfterUpdate = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
 
-        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getString("title"), apiRestResponseAfterUpdate.getBody().getString("title"));
-        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getString("comment"), apiRestResponseAfterUpdate.getBody().getString("comment"));
-        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getJSONObject("body").getJSONArray("und").getJSONObject(0).getString("value"),
+        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getString("title"),
+                               apiRestResponseAfterUpdate.getBody().getString("title"));
+        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getString("comment"),
+                               apiRestResponseAfterUpdate.getBody().getString("comment"));
+        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getJSONObject("body").getJSONArray("und").
+                getJSONObject(0).getString("value"),
                 apiRestResponseAfterUpdate.getBody().getJSONObject("body").getJSONArray("und").getJSONObject(0).getString("value"));
-        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").getJSONObject(0).getString("value"),
-                apiRestResponseAfterUpdate.getBody().getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").getJSONObject(0).getString("value"));
-        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getString("title"), connectorProperties.getProperty("nodeTitleUpdate"));
-        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getString("comment"), connectorProperties.getProperty("nodeCommentUpdate"));
-        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getJSONObject("body").getJSONArray("und").getJSONObject(0).getString("value"),
+        Assert.assertNotEquals(apiRestResponseBeforeUpdate.getBody().
+                getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").
+                                                                  getJSONObject(0).getString("value"),
+                apiRestResponseAfterUpdate.getBody().getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).
+                        getJSONArray("und").getJSONObject(0).getString("value"));
+        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getString("title"),
+                            connectorProperties.getProperty("nodeTitleUpdate"));
+        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getString("comment"),
+                            connectorProperties.getProperty("nodeCommentUpdate"));
+        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getJSONObject("body").getJSONArray("und").
+                getJSONObject(0).getString("value"),
                 connectorProperties.getProperty("nodeBodyValueUpdate"));
-        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").getJSONObject(0).getString("value"),
-                connectorProperties.getProperty("nodeCustFieldValueUpdate"));
+        Assert.assertEquals(apiRestResponseAfterUpdate.getBody().
+                getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").
+                                                              getJSONObject(0).getString("value"),
+                            connectorProperties.getProperty("nodeCustFieldValueUpdate"));
     }
 
     /**
@@ -350,10 +362,14 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONArray apiResponseArray = new JSONArray(apiResponseString);
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("fid"), apiResponseArray.getJSONObject(0).getString("fid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filename"), apiResponseArray.getJSONObject(0).getString("filename"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filemime"), apiResponseArray.getJSONObject(0).getString("filemime"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("status"), apiResponseArray.getJSONObject(0).getString("status"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("fid"),
+                            apiResponseArray.getJSONObject(0).getString("fid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filename"),
+                            apiResponseArray.getJSONObject(0).getString("filename"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filemime"),
+                            apiResponseArray.getJSONObject(0).getString("filemime"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("status"),
+                            apiResponseArray.getJSONObject(0).getString("status"));
     }
 
     /**
@@ -594,7 +610,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
         Assert.assertEquals(esbResponseArray.getJSONObject(0).has("cid"), apiResponseArray.getJSONObject(0).has("cid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).has("subject"), apiResponseArray.getJSONObject(0).has("subject"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).has("subject"),
+                            apiResponseArray.getJSONObject(0).has("subject"));
     }
 
     /**
@@ -823,7 +840,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
         Assert.assertEquals(esbResponseArray.getJSONObject(0).has("fid"), apiResponseArray.getJSONObject(0).has("fid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).has("filename"), apiResponseArray.getJSONObject(0).has("filename"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).has("filename"),
+                            apiResponseArray.getJSONObject(0).has("filename"));
     }
 
     /**
