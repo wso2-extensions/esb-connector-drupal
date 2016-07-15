@@ -48,7 +48,7 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
 
-        init("drupal-connector-1.0.1-SNAPSHOT");
+        init("drupal-connector-1.0.1");
         esbRequestHeadersMap.put("Content-Type", "application/json");
 
         // Create base64-encoded auth string using username and password
@@ -110,7 +110,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(nodeUrl, "GET", apiRequestHeadersMap);
         final JSONObject apiResponseObject = apiRestResponse.getBody();
         final JSONObject apiNodeBodyObject = apiResponseObject.getJSONObject("body").getJSONArray("und").getJSONObject(0);
-        final JSONObject apiNodeCustFieldObject = apiResponseObject.getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).getJSONArray("und").getJSONObject(0);
+        final JSONObject apiNodeCustFieldObject =
+                apiResponseObject.getJSONObject(connectorProperties.getProperty("nodeCustFieldLabel")).
+                        getJSONArray("und").getJSONObject(0);
 
         Assert.assertEquals(connectorProperties.getProperty("nodeComment"), apiResponseObject.getString("comment"));
         Assert.assertEquals(connectorProperties.getProperty("nodeBodyValue"), apiNodeBodyObject.getString("value"));
@@ -148,7 +150,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters"}, description = "drupal {getNode} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters"},
+            description = "drupal {getNode} integration test with mandatory parameters.")
     public void testGetNodeWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:getNode");
@@ -208,7 +211,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters", "testCreateNodeWithOptionalParameters"}, description = "drupal {listNodes} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters",
+                                                     "testCreateNodeWithOptionalParameters"},
+            description = "drupal {listNodes} integration test with mandatory parameters.")
     public void testListNodesWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listNodes");
@@ -224,10 +229,14 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONArray apiResponseArray = new JSONArray(apiResponseString);
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("nid"), apiResponseArray.getJSONObject(0).getString("nid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("title"), apiResponseArray.getJSONObject(0).getString("title"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("nid"), apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("nid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("title"), apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("title"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("nid"),
+                            apiResponseArray.getJSONObject(0).getString("nid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("title"),
+                            apiResponseArray.getJSONObject(0).getString("title"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("nid"),
+                            apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("nid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("title"),
+                            apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("title"));
     }
 
     /**
@@ -236,7 +245,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters", "testCreateNodeWithOptionalParameters"}, description = "drupal {listNodes} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithMandatoryParameters",
+                                                     "testCreateNodeWithOptionalParameters"},
+            description = "drupal {listNodes} integration test with optional parameters.")
     public void testListNodesWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listNodes");
@@ -385,7 +396,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"}, description = "drupal {createComment} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"},
+            description = "drupal {createComment} integration test with mandatory parameters.")
     public void testCreateCommentWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:createComment");
@@ -401,7 +413,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONObject apiResponseObject = apiRestResponse.getBody();
 
         Assert.assertEquals(connectorProperties.getProperty("nodeIdOpt"), apiResponseObject.getString("nid"));
-        Assert.assertEquals(connectorProperties.getProperty("commentBodyValueMand"), apiResponseObject.getJSONObject("comment_body").getJSONArray("und").getJSONObject(0).getString("value"));
+        Assert.assertEquals(connectorProperties.getProperty("commentBodyValueMand"),
+                            apiResponseObject.getJSONObject("comment_body").getJSONArray("und").getJSONObject(0)
+                                             .getString("value"));
     }
 
     /**
@@ -410,7 +424,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"}, description = "drupal {createComment} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateNodeWithOptionalParameters"},
+            description = "drupal {createComment} integration test with optional parameters.")
     public void testCreateCommentWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:createComment");
@@ -427,7 +442,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
 
         Assert.assertEquals(connectorProperties.getProperty("commentSubject"), apiResponseObject.getString("subject"));
         Assert.assertEquals(connectorProperties.getProperty("commentCustFieldValue"),
-                apiResponseObject.getJSONObject(connectorProperties.getProperty("commentCustFieldLabel")).getJSONArray("und").getJSONObject(0).getString("value"));
+                apiResponseObject.getJSONObject(connectorProperties.getProperty("commentCustFieldLabel")).
+                        getJSONArray("und").getJSONObject(0).getString("value"));
     }
 
     /**
@@ -462,7 +478,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters"}, description = "drupal {getComment} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters"},
+            description = "drupal {getComment} integration test with mandatory parameters.")
     public void testGetCommentWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:getComment");
@@ -517,7 +534,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters", "testCreateCommentWithOptionalParameters"}, description = "drupal {listComments} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters",
+                                                     "testCreateCommentWithOptionalParameters"},
+            description = "drupal {listComments} integration test with mandatory parameters.")
     public void testListCommentsWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listComments");
@@ -533,10 +552,14 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONArray apiResponseArray = new JSONArray(apiResponseString);
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("cid"), apiResponseArray.getJSONObject(0).getString("cid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("subject"), apiResponseArray.getJSONObject(0).getString("subject"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("cid"), apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("cid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("subject"), apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("subject"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("cid"), apiResponseArray.getJSONObject(0)
+                                                                                                .getString("cid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("subject"),
+                            apiResponseArray.getJSONObject(0).getString("subject"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("cid"),
+                            apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("cid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("subject"),
+                            apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("subject"));
     }
 
     /**
@@ -545,7 +568,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters", "testCreateCommentWithOptionalParameters"}, description = "drupal {listComments} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateCommentWithMandatoryParameters",
+                                                     "testCreateCommentWithOptionalParameters"},
+            description = "drupal {listComments} integration test with optional parameters.")
     public void testListCommentsWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listComments");
@@ -677,7 +702,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters"}, description = "drupal {getFile} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters"},
+            description = "drupal {getFile} integration test with mandatory parameters.")
     public void testGetFileWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:getFile");
@@ -737,7 +763,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters", "testCreateFileWithOptionalParameters"}, description = "drupal {listFiles} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters",
+                                                     "testCreateFileWithOptionalParameters"},
+            description = "drupal {listFiles} integration test with mandatory parameters.")
     public void testListFilesWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listFiles");
@@ -753,10 +781,14 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONArray apiResponseArray = new JSONArray(apiResponseString);
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("fid"), apiResponseArray.getJSONObject(0).getString("fid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filename"), apiResponseArray.getJSONObject(0).getString("filename"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("fid"), apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("fid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("filename"), apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("filename"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("fid"),
+                            apiResponseArray.getJSONObject(0).getString("fid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("filename"),
+                            apiResponseArray.getJSONObject(0).getString("filename"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("fid"),
+                            apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("fid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("filename"),
+                            apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("filename"));
     }
 
     /**
@@ -765,7 +797,9 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters", "testCreateFileWithOptionalParameters"}, description = "drupal {listFiles} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testCreateFileWithMandatoryParameters",
+                                                     "testCreateFileWithOptionalParameters"},
+            description = "drupal {listFiles} integration test with optional parameters.")
     public void testListFilesWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:listFiles");
@@ -822,10 +856,14 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         final JSONArray apiResponseArray = new JSONArray(apiResponseString);
 
         Assert.assertEquals(esbResponseArray.length(), apiResponseArray.length());
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("uid"), apiResponseArray.getJSONObject(0).getString("uid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("name"), apiResponseArray.getJSONObject(0).getString("name"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("uid"), apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("uid"));
-        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("name"), apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("name"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("uid"),
+                            apiResponseArray.getJSONObject(0).getString("uid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(0).getString("name"),
+                            apiResponseArray.getJSONObject(0).getString("name"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("uid"),
+                            apiResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("uid"));
+        Assert.assertEquals(esbResponseArray.getJSONObject(esbResponseArray.length() - 1).getString("name"),
+                            apiResponseArray.getJSONObject(apiResponseArray.length() - 1).getString("name"));
     }
 
     /**
@@ -875,7 +913,8 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
      * @throws JSONException
      * @throws IOException
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testListUsersWithMandatoryParameters"}, description = "drupal {getUser} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testListUsersWithMandatoryParameters"},
+            description = "drupal {getUser} integration test with mandatory parameters.")
     public void testGetUserWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:getUser");
@@ -915,7 +954,7 @@ public class DrupalConnectorIntegrationTest extends ConnectorIntegrationTestBase
         RestResponse<JSONObject> esbRestResponse =
                 sendJsonRestRequest(proxyUrl, "POST", esbRequestHeadersMap, "esb_getUser_negative.json");
 
-        Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 406);
+        Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 403);
 
         final String esbResponseString = esbRestResponse.getBody().getString("output");
         final JSONArray esbErrorResponseArray = new JSONArray(esbResponseString);
